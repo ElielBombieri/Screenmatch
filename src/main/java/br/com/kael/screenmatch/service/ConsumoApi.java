@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,7 @@ public class ConsumoApi {
                 .uri(URI.create(endereco))
                 .build();
         HttpResponse<String> response;
+        ObjectMapper mapper = new ObjectMapper();
         try {
             response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
