@@ -2,6 +2,7 @@ package br.com.kael.screenmatch;
 
 import br.com.kael.screenmatch.model.Ep;
 import br.com.kael.screenmatch.model.Serie;
+import br.com.kael.screenmatch.model.Temporada;
 import br.com.kael.screenmatch.service.Conversion;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,6 +31,12 @@ public class ScreenmatchApplication implements CommandLineRunner {
         Serie serie = conversion.DataConversion(serieJson, Serie.class);
         System.out.println(serie);
 
+        for (int i = 1; i < serie.totalTemporadas(); i++) {
+            String temporadasJson = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season="+ i +"&apikey=b4813b59");
+            Temporada temp = conversion.DataConversion(temporadasJson, Temporada.class);
+            System.out.println(temp);
+        }
+        
         String epJson = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season=1&episode=1&apikey=b4813b59");
         Ep ep = conversion.DataConversion(epJson, Ep.class);
         System.out.println(ep);
